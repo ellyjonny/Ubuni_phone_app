@@ -13,6 +13,7 @@ class PhonesModel {
     @required this.id,
   });
   factory PhonesModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     return PhonesModel(
       phonename: json['name'] ?? "",
       brandname: json['Brand'] ?? "",

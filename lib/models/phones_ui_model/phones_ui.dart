@@ -10,7 +10,7 @@ class PhonesUI extends StatelessWidget {
   PhonesUI(
       {@required this.phonename,
       @required this.brandname,
-      @required this.phoneimage});
+      @required this.phoneimage, String imageurl, int id});
 
   @override
   Widget build(BuildContext context) {
