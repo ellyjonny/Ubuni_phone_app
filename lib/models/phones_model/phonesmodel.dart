@@ -1,24 +1,24 @@
 import 'package:flutter/cupertino.dart';
 
 class PhonesModel {
-  String phonename;
-  String brandname;
+  String name;
+  String brand;
   int id;
-  String imageurl;
+  String image_url;
 
   PhonesModel({
-    @required this.phonename,
-    @required this.brandname,
-    @required this.imageurl,
+    @required this.name,
+    @required this.brand,
+    @required this.image_url,
     @required this.id,
   });
   factory PhonesModel.fromJson(Map<String, dynamic> json) {
     print(json);
     return PhonesModel(
-      phonename: json['name'] ?? "",
-      brandname: json['Brand'] ?? "",
-      imageurl: json['image_url'] ?? "",
-      id: json['id'],
+      name: json['phonename'] ?? "",
+      brand: json['Brandname'] ?? "",
+      image_url: json['phoneimage'] ?? "",
+      id: json['id']??"",
     );
   }
 }

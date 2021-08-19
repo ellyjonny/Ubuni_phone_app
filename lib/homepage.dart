@@ -44,20 +44,21 @@ class _HomepageState extends State<Homepage> {
             )
           ],
         ),
-        body: ListView(
-          children: [
-             Column(
-              children: phonesState.phonesLists.length < 1
-                  ? [Text("Loading...")]
-                  : phonesState.phonesLists.map((PhonesModel phonesModel) {
-                      return PhonesUI(
-                          phonename: phonesModel.phonename,
-                          brandname: phonesModel.brandname,
-                          phoneimage: phonesModel.imageurl,
-                          id: phonesModel.id);
-                    }).toList())
-          ],
-        ),
+        body: ListView(children: [
+          Center(
+            child: Column(
+                children:
+                 phonesState.phonesLists.length < 1
+                    ? [Text("Loading...")]
+                    : phonesState.phonesLists.map((PhonesModel phonesModel) {
+                        return PhonesUI(
+                            phonename: phonesModel.name,
+                            brandname: phonesModel.brand,
+                            phoneimage: NetworkImage(phonesModel.image_url),
+                            );
+                      }).toList()),
+          ),
+        ]),
       );
     });
   }

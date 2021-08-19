@@ -10,7 +10,7 @@ class PhonesUI extends StatelessWidget {
   PhonesUI(
       {@required this.phonename,
       @required this.brandname,
-      @required this.phoneimage, String imageurl, int id});
+      @required this.phoneimage});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,8 @@ class PhonesUI extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: Color(0xFF37B1CC))),
-              child: Image(fit: BoxFit.cover, image: phoneimage)),
+              child: Image(fit: BoxFit.cover, image: 
+              phoneimage)),
           SizedBox(
             height: MediaQuery.of(context).size.height / 64,
           ),

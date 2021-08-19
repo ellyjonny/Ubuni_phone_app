@@ -31,7 +31,8 @@ dependencies:
   google_fonts:
   carousel_slider:
   font_awesome_flutter:
-  provider: 
+  provider:
+  http: 
 
 dev_dependencies:
   flutter_test:
