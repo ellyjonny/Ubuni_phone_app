@@ -1,22 +1,43 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:ubuni_phone_app/app_state/phones_state.dart';
+import 'package:ubuni_phone_app/core/services/phones_services.dart';
 import 'package:ubuni_phone_app/models/phones_model/phonesmodel.dart';
-import 'package:ubuni_phone_app/models/phones_ui_model/phones_ui.dart';
+import 'package:ubuni_phone_app/models/phones_ui/phones_ui.dart';
+import 'package:ubuni_phone_app/singlephone_ui.dart';
+
 
 class Homepage extends StatefulWidget {
   @override
-  _HomepageState createState() => _HomepageState();
+  createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState extends State {
+  // ignore: deprecated_member_use
+  var phones = new List<PhonesModel>();
+
+  _getPhones() {
+    API.getPhones().then((response) {
+      setState(() {
+        Iterable list = json.decode(response.body);
+        phones = list.map((model) => PhonesModel.fromJson(model)).toList();
+      });
+    });
+  }
+
+  initState() {
+    super.initState();
+    _getPhones();
+  }
+
+  dispose() {
+    super.dispose();
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Consumer<PhonesState>(
-        builder: (BuildContext context, phonesState, child) {
-      return Scaffold(
+  build(context) {
+    return Scaffold(
         appBar: AppBar(
           title: Text('Ubuni Phone Store',
               style: GoogleFonts.amiri(
@@ -44,22 +65,24 @@ class _HomepageState extends State<Homepage> {
             )
           ],
         ),
-        body: ListView(children: [
-          Center(
-            child: Column(
-                children:
-                 phonesState.phonesLists.length < 1
-                    ? [Text("Loading...")]
-                    : phonesState.phonesLists.map((PhonesModel phonesModel) {
-                        return PhonesUI(
-                            phonename: phonesModel.name,
-                            brandname: phonesModel.brand,
-                            phoneimage: NetworkImage(phonesModel.image_url),
-                            );
-                      }).toList()),
-          ),
-        ]),
-      );
-    });
+        body: ListView.builder(
+          itemCount: phones.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+                child: PhonesUI(
+                  name: phones[index].name,
+                  brand: phones[index].brand,
+                  image_url: NetworkImage(phones[index].image_url),
+                ),
+                onTap: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SinglePhoneView(),
+
+                  ));
+                });
+          },
+        ));
   }
 }
