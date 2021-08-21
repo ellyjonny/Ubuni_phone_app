@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class SinglePhonesUI extends StatelessWidget {
-  var image_url;
+  final image_url;
   final String name;
   final String brand;
 
@@ -16,17 +16,25 @@ class SinglePhonesUI extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Container(
-              height: 500,
-              width: MediaQuery.of(context).size.width / 1.07,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Color(0xFF37B1CC))),
-              child: Image(fit: BoxFit.cover, image: image_url)),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 64,
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height/32),
+                Container(
+                    height: 400,
+                    width: MediaQuery.of(context).size.width / 1.07,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Color(0xFF37B1CC))),
+                    child: Image(fit: BoxFit.cover, image: image_url)),
+              ],
+            ),
           ),
-          Row(
+          SizedBox(
+            height: MediaQuery.of(context).size.height /500,
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('$brand',
                   style: GoogleFonts.amiri(

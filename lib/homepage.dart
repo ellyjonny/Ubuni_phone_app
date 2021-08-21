@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ubuni_phone_app/core/services/phones_services.dart';
 import 'package:ubuni_phone_app/models/phones_model/phonesmodel.dart';
 import 'package:ubuni_phone_app/models/phones_ui/phones_ui.dart';
-import 'package:ubuni_phone_app/singlephone_ui.dart';
+import 'package:ubuni_phone_app/singlephoneview.dart';
 
 
 class Homepage extends StatefulWidget {
@@ -16,9 +16,10 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State {
   // ignore: deprecated_member_use
   var phones = new List<PhonesModel>();
+  var idcheck;
 
   _getPhones() {
-    API.getPhones().then((response) {
+    PhoneServices.getPhones().then((response) {
       setState(() {
         Iterable list = json.decode(response.body);
         phones = list.map((model) => PhonesModel.fromJson(model)).toList();
@@ -70,15 +71,15 @@ class _HomepageState extends State {
           itemBuilder: (context, index) {
             return InkWell(
                 child: PhonesUI(
-                  name: phones[index].name,
-                  brand: phones[index].brand,
+                  name: phones[index].phonename,
+                  brand: phones[index].brandname,
                   image_url: NetworkImage(phones[index].image_url),
                 ),
                 onTap: () {
                   Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SinglePhoneView(),
+                    builder: (context) => SinglePhone(idcheck: phones[index].id),
 
                   ));
                 });
@@ -86,3 +87,4 @@ class _HomepageState extends State {
         ));
   }
 }
+
